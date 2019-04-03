@@ -46,13 +46,13 @@ public class CustomDayView extends DayView {
     @Override
     public void refreshContent() {
         renderToday(day.getDate(), day.getState());
-        renderSelect(day.getState());
         renderMarker(day.getDate(), day.getState());
+        renderSelect(day.getDate(),day.getState());
         super.refreshContent();
     }
 
     private void renderMarker(CalendarDate date, State state) {
-            Log.d("SSSSSSSSSSSS", "renderMarker: "+state);
+           //如果是当月，并且包含此Mark
         if (Utils.loadMarkData().containsKey(date.toString())&&state==State.CURRENT_MONTH) {
             marker.setVisibility(VISIBLE);
             if (Utils.loadMarkData().get(date.toString()).equals("0")) {
@@ -65,12 +65,16 @@ public class CustomDayView extends DayView {
             marker.setVisibility(GONE);
         }
 }
-    private void renderSelect(State state) {
-        Log.d("SSSSSSSSSS", "renderSelect: "+state);
+    private void renderSelect(CalendarDate date,State state) {
         if (state == State.SELECT) {
 //            本月
             selectedBackground.setVisibility(VISIBLE);
             dateTv.setTextColor(Color.WHITE);
+//            如果是是Mark就显示
+            if (Utils.loadMarkData().containsKey(date.toString())){
+                marker.setVisibility(VISIBLE);
+            }
+
         } else if (state == State.NEXT_MONTH || state == State.PAST_MONTH) {
 //            不是本月
             selectedBackground.setVisibility(GONE);
