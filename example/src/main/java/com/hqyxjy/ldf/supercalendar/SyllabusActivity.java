@@ -179,7 +179,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                 rvToDoList.scrollToPosition(0);
             }
         });
-       // initMarkData();
+        initMarkData();
         initMonthPager();
     }
     public static String getDate(Long time){
@@ -198,6 +198,10 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
         markData.put("2019-4-1", "0");
         markData.put("2019-4-20", "0");
         markData.put("2019-4-30", "0");
+        markData.put("2019-5-25", "0");
+        markData.put("2019-5-28", "0");
+        markData.put("2019-3-25", "0");
+        markData.put("2019-3-24", "0");
         calendarAdapter.setMarkData(markData);
         calendarAdapter.notifyDataChanged();
     }

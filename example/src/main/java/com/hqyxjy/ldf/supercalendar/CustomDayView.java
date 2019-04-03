@@ -3,6 +3,7 @@ package com.hqyxjy.ldf.supercalendar;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,7 +32,7 @@ public class CustomDayView extends DayView {
     /**
      * 构造器
      *
-     * @param context 上下文
+     * @param context        上下文
      * @param layoutResource 自定义DayView的layout资源
      */
     public CustomDayView(Context context, int layoutResource) {
@@ -44,30 +45,28 @@ public class CustomDayView extends DayView {
 
     @Override
     public void refreshContent() {
-        renderToday(day.getDate());
+        renderToday(day.getDate(), day.getState());
         renderSelect(day.getState());
         renderMarker(day.getDate(), day.getState());
         super.refreshContent();
     }
 
     private void renderMarker(CalendarDate date, State state) {
-        if (Utils.loadMarkData().containsKey(date.toString())) {
-            if (state == State.SELECT || date.toString().equals(today.toString())) {
-                marker.setVisibility(GONE);
+            Log.d("SSSSSSSSSSSS", "renderMarker: "+state);
+        if (Utils.loadMarkData().containsKey(date.toString())&&state==State.CURRENT_MONTH) {
+            marker.setVisibility(VISIBLE);
+            if (Utils.loadMarkData().get(date.toString()).equals("0")) {
+                marker.setEnabled(true);
             } else {
-                marker.setVisibility(VISIBLE);
-                if (Utils.loadMarkData().get(date.toString()).equals("0")) {
-                    marker.setEnabled(true);
-                } else {
-                    marker.setEnabled(false);
-                }
+                marker.setEnabled(false);
             }
+
         } else {
             marker.setVisibility(GONE);
         }
-    }
-
+}
     private void renderSelect(State state) {
+        Log.d("SSSSSSSSSS", "renderSelect: "+state);
         if (state == State.SELECT) {
 //            本月
             selectedBackground.setVisibility(VISIBLE);
@@ -75,23 +74,26 @@ public class CustomDayView extends DayView {
         } else if (state == State.NEXT_MONTH || state == State.PAST_MONTH) {
 //            不是本月
             selectedBackground.setVisibility(GONE);
-            dateTv.setTextColor(Color.parseColor("#ffffff"));
+            // dateTv.setTextColor(Color.parseColor("#5b5b5b"));
+            dateTv.setText("");
         } else {
             selectedBackground.setVisibility(GONE);
             dateTv.setTextColor(Color.parseColor("#111111"));
         }
     }
 
-    private void renderToday(CalendarDate date) {
+    private void renderToday(CalendarDate date, State state) {
         if (date != null) {
-            if (date.equals(today)) {
-                dateTv.setText("今");
+//            只渲染本月的
+            if (date.equals(today) && state == State.SELECT) {
+                dateTv.setText(date.day + "");
                 todayBackground.setVisibility(VISIBLE);
             } else {
                 dateTv.setText(date.day + "");
                 todayBackground.setVisibility(GONE);
             }
         }
+
     }
 
     @Override

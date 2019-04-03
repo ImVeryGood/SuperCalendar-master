@@ -67,17 +67,18 @@ public class CalendarRenderer {
                     CalendarViewAdapter.saveSelectedDate(selectedDate);
                     onSelectDateListener.onSelectDate(selectedDate);
                     seedDate = selectedDate;
-                } else if (weeks[row].days[col].getState() == State.PAST_MONTH) {
-                    selectedDate = weeks[row].days[col].getDate();
-                    CalendarViewAdapter.saveSelectedDate(selectedDate);
-                    onSelectDateListener.onSelectOtherMonth(-1);
-                    onSelectDateListener.onSelectDate(selectedDate);
-                } else if (weeks[row].days[col].getState() == State.NEXT_MONTH) {
-                    selectedDate = weeks[row].days[col].getDate();
-                    CalendarViewAdapter.saveSelectedDate(selectedDate);
-                    onSelectDateListener.onSelectOtherMonth(1);
-                    onSelectDateListener.onSelectDate(selectedDate);
                 }
+//                else if (weeks[row].days[col].getState() == State.PAST_MONTH) {
+//                    selectedDate = weeks[row].days[col].getDate();
+//                    CalendarViewAdapter.saveSelectedDate(selectedDate);
+//                    onSelectDateListener.onSelectOtherMonth(-1);
+//                    onSelectDateListener.onSelectDate(selectedDate);
+//                } else if (weeks[row].days[col].getState() == State.NEXT_MONTH) {
+//                    selectedDate = weeks[row].days[col].getDate();
+//                    CalendarViewAdapter.saveSelectedDate(selectedDate);
+//                    onSelectDateListener.onSelectOtherMonth(1);
+//                    onSelectDateListener.onSelectDate(selectedDate);
+//                }
             } else {
                 weeks[row].days[col].setState(State.SELECT);
                 selectedDate = weeks[row].days[col].getDate();

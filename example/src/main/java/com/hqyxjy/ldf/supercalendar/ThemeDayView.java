@@ -32,7 +32,6 @@ public class ThemeDayView extends DayView {
         dateTv = (TextView) findViewById(R.id.date);
         marker = (ImageView) findViewById(R.id.maker);
         selectedBackground = findViewById(R.id.selected_background);
-        selectedBackground = findViewById(R.id.selected_background);
         todayBackground = findViewById(R.id.today_background);
     }
 
@@ -41,11 +40,16 @@ public class ThemeDayView extends DayView {
         CalendarDate date = day.getDate();
         State state = day.getState();
         if (date != null) {
+            if (state!=null){
             if (date.equals(today)) {
                 dateTv.setText("今");
                 todayBackground.setVisibility(VISIBLE);
             } else {
                 dateTv.setText(date.day + "");
+                todayBackground.setVisibility(GONE);
+            }
+        }else {
+                dateTv.setText("");
                 todayBackground.setVisibility(GONE);
             }
         }
